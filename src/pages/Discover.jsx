@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { Error, Loader, SongCard } from "../components"
+import { Loader, SongCard } from "../components"
 import { genres } from "../assets/constants"
 import { selectGenreListId } from "../redux/features/playerSlice"
 import { useGetSongsByGenreQuery } from "../redux/services/shazamCore"
-import { useGetSongsByCountryQuery } from "../redux/services/shazamCore"
 
 
 const Discover = () => {
@@ -13,7 +12,7 @@ const Discover = () => {
     const [country, setCountry] = useState('')
     const [loading, setLoading] = useState(true)
     const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player)
-    const { data, isFetching, error } = useGetSongsByGenreQuery (genreListId || 'Pop') && useGetSongsByCountryQuery (country)
+    const { data, isFetching, error } = useGetSongsByGenreQuery ({ genre: genreListId || 'Pop', countryCode: country }, {skip: !country})
 
     useEffect(() => {
         axios.get (`https://geo.ipify.org/api/v2/country?apiKey=at_r5hp9DVIS6qZP0YCuhNKNxxAY7d8k`)

@@ -20,8 +20,6 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
     ref.current.currentTime = seekTime;
   }, [seekTime]);
 
-  console.log("Active song", activeSong)
-
   return (
     <audio
       src={activeSong?.attributes?.previews?.[0]?.url}
